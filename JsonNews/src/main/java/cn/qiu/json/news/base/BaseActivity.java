@@ -9,7 +9,7 @@ import cn.qiu.json.news.utils.PrefUtil;
 import cn.qiu.json.news.utils.swipeback.SwipeBackActivity;
 import cn.qiu.json.news.utils.swipeback.SwipeBackLayout;
 
-
+//抽象基类BaseActivity 继承SwipeBackActivity，这样所有类实现滑动退出当前页面效果
 public abstract class BaseActivity extends SwipeBackActivity {
 
     protected SwipeBackLayout mSwipeBackLayout;

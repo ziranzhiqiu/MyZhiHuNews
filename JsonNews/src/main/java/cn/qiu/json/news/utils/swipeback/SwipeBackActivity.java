@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+//返回退出当前Activity
 public class SwipeBackActivity extends AppCompatActivity implements SwipeBackActivityBase {
     private SwipeBackActivityHelper mHelper;
 

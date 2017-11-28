@@ -9,7 +9,7 @@ import cn.qiu.json.news.base.Constant;
 
 public class PrefUtil {
 
-    private static final String PRE_NAME = "io.github.laucherish.purezhihud_preferences";
+    private static final String PRE_NAME = "cn.qiu.json.news_preferences";
     private static final String PRE_NIGHT = "night";
 
     private static SharedPreferences getSharedPreferences() {
