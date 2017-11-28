@@ -8,6 +8,7 @@ import cn.qiu.json.news.App;
 import cn.qiu.json.news.bean.NewsDetail;
 import cn.qiu.json.news.bean.NewsList;
 import cn.qiu.json.news.network.service.ZhihuService;
+import cn.qiu.json.news.utils.LogUtils;
 import cn.qiu.json.news.utils.NetUtil;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
@@ -24,6 +25,7 @@ import rx.Observable;
 
 public class RetrofitManager {
 
+    public static final String TAG = "---RetrofitManager---";
     public static final String BASE_ZHIHU_URL = "http://news-at.zhihu.com/api/4/";
 
     //短缓存有效期为1分钟
@@ -40,7 +42,7 @@ public class RetrofitManager {
     private static OkHttpClient mOkHttpClient;
     private final ZhihuService mZhihuService;
 
-    public static RetrofitManager builder(){
+    public static RetrofitManager builder() {
         return new RetrofitManager();
     }
 
@@ -85,29 +87,34 @@ public class RetrofitManager {
     private Interceptor mRewriteCacheControlInterceptor = new Interceptor() {
         @Override
         public Response intercept(Chain chain) throws IOException {
-            Request request = chain.request();
-            if (!NetUtil.isNetworkConnected()) {
-                request = request.newBuilder().cacheControl(CacheControl.FORCE_CACHE).build();
+            try {
+                Request request = chain.request();
+                if (!NetUtil.isNetworkConnected()) {
+                    request = request.newBuilder().cacheControl(CacheControl.FORCE_CACHE).build();
+                }
+                Response originalResponse = chain.proceed(request);
+                if (NetUtil.isNetworkConnected()) {
+                    //有网的时候读接口上的@Headers里的配置，你可以在这里进行统一的设置
+                    String cacheControl = request.cacheControl().toString();
+                    return originalResponse.newBuilder().header("Cache-Control", cacheControl)
+                            .removeHeader("Pragma").build();
+                } else {
+                    return originalResponse.newBuilder()
+                            .header("Cache-Control", "public, only-if-cached, max-stale=" + CACHE_STALE_LONG)
+                            .removeHeader("Pragma").build();
+                }
+            } catch (Exception exception) {
+                LogUtils.e(TAG, "exception = " + exception);
             }
-            Response originalResponse = chain.proceed(request);
-            if (NetUtil.isNetworkConnected()) {
-                //有网的时候读接口上的@Headers里的配置，你可以在这里进行统一的设置
-                String cacheControl = request.cacheControl().toString();
-                return originalResponse.newBuilder().header("Cache-Control", cacheControl)
-                        .removeHeader("Pragma").build();
-            } else {
-                return originalResponse.newBuilder()
-                        .header("Cache-Control", "public, only-if-cached, max-stale=" + CACHE_STALE_LONG)
-                        .removeHeader("Pragma").build();
-            }
+            return null;
         }
     };
 
-    public Observable<NewsList> getLatestNews(){
+    public Observable<NewsList> getLatestNews() {
         return mZhihuService.getLatestNews();
     }
 
-    public Observable<NewsList> getBeforeNews(String date){
+    public Observable<NewsList> getBeforeNews(String date) {
         return mZhihuService.getBeforeNews(date);
     }
 
