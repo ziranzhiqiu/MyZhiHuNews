@@ -24,11 +24,11 @@
                                                                  JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
                                                          ]
 *3.清单文件
-        *<permission android:name="cn.qiu.json.news.permission.JPUSH_MESSAGE" android:protectionLevel="signature" />
-       *<uses-permission android:name="cn.qiu.json.news.permission.JPUSH_MESSAGE" />
+         permission android:name="cn.qiu.json.news.permission.JPUSH_MESSAGE" android:protectionLevel="signature" />
+        uses-permission android:name="cn.qiu.json.news.permission.JPUSH_MESSAGE" />
 
 *4.清单文件
-    *<receiver
+     receiver
        android:name=".MyReceiver"
        android:enabled="true"
        android:exported="false">
