@@ -11,10 +11,45 @@
 * 分享
 * 夜间模式
 
+##极光推送买坑：
+* 1.进入激光官网注册APP，得到APP Key
+* 2.module 的 build.gradle中 的 defaultConfig{} 里面添加ndk {
+                                                             //选择要添加的对应cpu类型的.so库（不需要的删除即可）。
+                                                             abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', 'x86_64', 'mips', 'mips64'
+                                                         }
+
+                                                         manifestPlaceholders = [
+                                                                 JPUSH_PKGNAME: applicationId,
+                                                                 JPUSH_APPKEY : "？？？？c964f81d8b61c066e7888de3？？？？？", //JPush上注册的包名对应的appkey（*换成你的*）
+                                                                 JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
+                                                         ]
+*3.清单文件<permission android:name="cn.qiu.json.news.permission.JPUSH_MESSAGE" android:protectionLevel="signature" />
+       <uses-permission android:name="cn.qiu.json.news.permission.JPUSH_MESSAGE" />
+
+*4.清单文件<receiver
+                   android:name=".MyReceiver"
+                   android:enabled="true"
+                   android:exported="false">
+                   <intent-filter>
+                       <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!--Required  用户注册SDK的intent-->
+                       <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!--Required  用户接收SDK消息的intent-->
+                       <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!--Required  用户接收SDK通知栏信息的intent-->
+                       <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!--Required  用户打开自定义通知栏的intent-->
+                       <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" /> <!--Optional 用户接受Rich Push Javascript 回调函数的intent-->
+                       <action android:name="cn.jpush.android.intent.CONNECTION" /><!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                       <category android:name="？？？？？cn.qiu.json.news？？？？？" />
+                   </intent-filter>
+               </receiver>
+*5.写MyReciver或者RxJava传递处理消息
+*6.module 的 build.gradle中 compile 'cn.jiguang.sdk:jpush:3.0.9'  // 此处以JPush 3.0.9 版本为例。
+       compile 'cn.jiguang.sdk:jcore:1.1.7'  // 此处以JCore 1.1.7 版本为例。
+
+
+
 
 软件采用RxJava + Retrofit + OkHttp框架实现，遵循Material Design，界面简单干净，运行速度快，自动离线缓存，节省流量，对于页面加载及错误等都做了处理，可以作为自己以后开发的一个模板。
 
-## 三、依赖库
+##  依赖库
 * [RxJava 响应式编程框架](https://github.com/ReactiveX/RxJava)
 * [Retrofit2.0 REST安卓客户端请求库](https://github.com/square/retrofit)
 * [OkHttp3 网络请求](https://github.com/square/okhttp)
