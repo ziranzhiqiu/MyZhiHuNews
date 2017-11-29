@@ -5,11 +5,22 @@ android {
     buildToolsVersion "25.0.3"
 
     defaultConfig {
-        applicationId "io.github.laucherish.purezhihud"
+        applicationId "cn.qiu.json.news"
         minSdkVersion 17
         targetSdkVersion 25
         versionCode 5
         versionName "1.4"
+
+        ndk {
+            //选择要添加的对应cpu类型的.so库（不需要的删除即可）。
+            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: applicationId,
+                JPUSH_APPKEY : "c964f81d8b61c066e7888de3", //JPush上注册的包名对应的appkey（*换成你的*）
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
+        ]
     }
     buildTypes {
         release {
@@ -22,6 +33,8 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
+
+
 }
 
 dependencies {
@@ -55,4 +68,7 @@ dependencies {
     compile 'com.yalantis:phoenix:1.2.3'
 //    compile 'com.umeng.analytics:analytics:latest.integration'
 //    compile 'org.jsoup:jsoup:1.8.3'
+
+    compile 'cn.jiguang.sdk:jpush:3.0.9'  // 此处以JPush 3.0.9 版本为例。
+    compile 'cn.jiguang.sdk:jcore:1.1.7'  // 此处以JCore 1.1.7 版本为例。
 }

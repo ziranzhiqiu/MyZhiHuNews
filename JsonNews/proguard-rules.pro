@@ -94,3 +94,11 @@
 -keep public class * extends android.support.v7.**
 
 
+#极光推送的混淆
+-dontoptimize
+-dontpreverify
+
+-dontwarn cn.jpush.**
+-keep class cn.jpush.** { *; }
+
+
