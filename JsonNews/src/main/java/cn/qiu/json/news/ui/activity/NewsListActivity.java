@@ -22,6 +22,7 @@ import cn.qiu.json.news.base.BaseActivity;
 import cn.qiu.json.news.base.Constant;
 import cn.qiu.json.news.ui.adapter.NewsListAdapter;
 import cn.qiu.json.news.ui.fragment.NewsListFragment;
+import cn.qiu.json.news.utils.LogUtils;
 import cn.qiu.json.news.utils.PrefUtil;
 
 public class NewsListActivity extends BaseActivity {
@@ -31,6 +32,7 @@ public class NewsListActivity extends BaseActivity {
     @Bind(R.id.iv_main)
     ImageView mIvMain;
 
+    private final static String TAG = "---NewsListActivity----";
     private final long ANIMTION_TIME = 1000;
     private NewsListFragment mFragment;
 
@@ -53,6 +55,7 @@ public class NewsListActivity extends BaseActivity {
     }
 
     private void addFragment(int position, int scroll, NewsListAdapter adapter, String curDate) {
+        LogUtils.e(TAG, "position = " + position + "   scroll=" + scroll);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         if (mFragment != null) {
             transaction.remove(mFragment);
