@@ -59,14 +59,14 @@
 * [ButterKnife 依赖注入](https://github.com/JakeWharton/butterknife) 
 
 感谢这些开源库的大神们
-## 四、用到的知识点
+## 用到的知识点
 Retrofit — Getting Started and Create an Android Client
 <br>https://futurestud.io/blog/retrofit-getting-started-and-android-client</br>
 
 给 Android 开发者的 RxJava 详解
 <br>http://gank.io/post/560e15be2dca930e00da1083</br>
 
-## 五、声明
+## 声明
 应用中展示的所有内容均搜集自互联网，若内容有侵权请联系作者进行删除处理。本应用仅用作分享与学习。
 
 
