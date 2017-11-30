@@ -32,7 +32,7 @@ public class NewsDetailActivity extends BaseActivity {
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
-        mSwipeBackLayout.setEdgeDp(120); //设置滑动返回触发范围
+        mSwipeBackLayout.setEdgeSize(120); //设置滑动返回触发范围
         News news = getIntent().getParcelableExtra(KEY_NEWS);
         showNewsDetailFragment(news);
     }

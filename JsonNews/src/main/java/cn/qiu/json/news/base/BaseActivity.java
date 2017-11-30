@@ -6,8 +6,8 @@ import android.view.KeyEvent;
 
 import butterknife.ButterKnife;
 import cn.qiu.json.news.utils.PrefUtil;
-import cn.qiu.json.news.utils.swipeback.SwipeBackActivity;
-import cn.qiu.json.news.utils.swipeback.SwipeBackLayout;
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 //抽象基类BaseActivity 继承SwipeBackActivity，这样所有类实现滑动退出当前页面效果
 public abstract class BaseActivity extends SwipeBackActivity {

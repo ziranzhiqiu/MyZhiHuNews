@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
 import com.yalantis.phoenix.PullToRefreshView;
 
 import java.util.ArrayList;
@@ -26,7 +27,6 @@ import cn.qiu.json.news.db.dao.NewDao;
 import cn.qiu.json.news.network.manager.RetrofitManager;
 import cn.qiu.json.news.ui.adapter.AutoLoadOnScrollListener;
 import cn.qiu.json.news.ui.adapter.NewsListAdapter;
-import cn.qiu.json.news.utils.LogUtils;
 import cn.qiu.json.news.utils.NetUtil;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
@@ -209,7 +209,7 @@ public class NewsListFragment extends BaseFragment implements PullToRefreshView.
                     public void call(NewsList newsList) {
                         mPtrNewsList.setRefreshing(false);
                         hideProgress();
-                        LogUtils.object(newsList.getStories());
+                        Logger.e(newsList.getStories()+"");
                         if (newsList.getStories() == null) {
                             mTvLoadEmpty.setVisibility(View.VISIBLE);
                         } else {
@@ -253,7 +253,7 @@ public class NewsListFragment extends BaseFragment implements PullToRefreshView.
                     public void call(NewsList newsList) {
                         mAutoLoadListener.setLoading(false);
                         mLoadBeforeSnackbar.dismiss();
-                        LogUtils.object(newsList.getStories());
+                        Logger.e(newsList.getStories()+"");
                         mNewsListAdapter.addData(newsList.getStories());
                         curDate = newsList.getDate();
                     }
@@ -261,7 +261,7 @@ public class NewsListFragment extends BaseFragment implements PullToRefreshView.
                     @Override
                     public void call(Throwable throwable) {
                         mAutoLoadListener.setLoading(false);
-                        LogUtils.e(throwable, "Load before news error");
+                        Logger.e(throwable, "Load before news error");
                         mLoadBeforeSnackbar.show();
                     }
                 });
@@ -283,7 +283,7 @@ public class NewsListFragment extends BaseFragment implements PullToRefreshView.
     private void cacheAllDetail(List<News> newsList) {
         if (NetUtil.isWifiConnected()) {
             for (News news : newsList) {
-                LogUtils.d("Cache news: " + news.getId() + news.getTitle());
+                Logger.e("Cache news: " + news.getId() + news.getTitle());
                 cacheNewsDetail(news.getId());
             }
         }

@@ -40,7 +40,7 @@
             android:padding="3dp"
             android:textColor="?attr/textColorFirst"
             android:textSize="18sp"
-            tools:text="新闻标题新闻标题新闻标题新闻标题新闻标题新闻标题,不忘初心,方得始终." />
+            tools:text="新闻标题新闻标题 " />
 
     </RelativeLayout>
 

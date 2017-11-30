@@ -3,12 +3,14 @@ package cn.qiu.json.news;
 import android.app.Application;
 import android.content.Context;
 
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
+
 import java.util.HashSet;
 import java.util.Set;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.qiu.json.news.utils.AppContextUtil;
-import cn.qiu.json.news.utils.LogUtils;
 
 
 public class App extends Application {
@@ -20,7 +22,7 @@ public class App extends Application {
         super.onCreate();
         mApplicationContext = this;
         AppContextUtil.init(this);
-        LogUtils.init();
+        Logger.addLogAdapter(new AndroidLogAdapter());
 
         initJGuang();
     }

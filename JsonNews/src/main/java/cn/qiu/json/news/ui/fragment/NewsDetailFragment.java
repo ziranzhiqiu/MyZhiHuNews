@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.orhanobut.logger.Logger;
 
 import butterknife.Bind;
 import cn.qiu.json.news.R;
@@ -28,7 +29,6 @@ import cn.qiu.json.news.network.manager.RetrofitManager;
 import cn.qiu.json.news.ui.activity.AboutActivity;
 import cn.qiu.json.news.ui.activity.NewsDetailActivity;
 import cn.qiu.json.news.utils.HtmlUtil;
-import cn.qiu.json.news.utils.LogUtils;
 import cn.qiu.json.news.utils.PrefUtil;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
@@ -129,7 +129,7 @@ public class NewsDetailFragment extends BaseFragment {
                     @Override
                     public void call(NewsDetail newsDetail) {
                         hideProgress();
-                        LogUtils.object(newsDetail);
+                        Logger.e(""+newsDetail);
                         if (newsDetail == null) {
                             mTvLoadEmpty.setVisibility(View.VISIBLE);
                         } else {
@@ -152,7 +152,7 @@ public class NewsDetailFragment extends BaseFragment {
                     @Override
                     public void call(Throwable throwable) {
                         hideProgress();
-                        LogUtils.e(throwable,"Load news detail error");
+                        Logger.e(throwable,"Load news detail error");
                         mTvLoadError.setVisibility(View.VISIBLE);
                         mTvLoadEmpty.setVisibility(View.GONE);
                     }

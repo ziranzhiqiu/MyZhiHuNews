@@ -1,5 +1,7 @@
 package cn.qiu.json.news.network.manager;
 
+import com.orhanobut.logger.Logger;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -8,7 +10,6 @@ import cn.qiu.json.news.App;
 import cn.qiu.json.news.bean.NewsDetail;
 import cn.qiu.json.news.bean.NewsList;
 import cn.qiu.json.news.network.service.ZhihuService;
-import cn.qiu.json.news.utils.LogUtils;
 import cn.qiu.json.news.utils.NetUtil;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
@@ -104,7 +105,7 @@ public class RetrofitManager {
                             .removeHeader("Pragma").build();
                 }
             } catch (Exception exception) {
-                LogUtils.e(TAG, "exception = " + exception);
+                Logger.e(TAG, "exception = " + exception);
             }
             return null;
         }
